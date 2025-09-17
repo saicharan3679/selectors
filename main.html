@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tirupati Tech Summit 2025 - Register</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #f0f4ff, #e3eeff);
+      margin: 0;
+      padding: 20px;
+    }
+    .form-container {
+      background: #fff;
+      max-width: 680px;
+      margin: 24px auto;
+      padding: 28px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(13, 38, 76, 0.06);
+    }
+    #eventName { text-align:center; color:#007BFF; font-size:1.6rem; margin:0 0 4px; }
+    .subtitle { text-align:center; margin: 0 0 18px; color:#444; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display:block; font-weight:600; margin-bottom:6px; color:#333; }
+    .input-field, select {
+      width:100%; padding:10px 12px; border:1px solid #d0d6dd;
+      border-radius:6px; font-size:14px; background:#fff;
+    }
+    .input-field:focus, select:focus {
+      outline:none; border-color:#007BFF; box-shadow:0 0 0 3px rgba(0,123,255,0.06);
+    }
+    .radio-group { display:flex; flex-direction:column; gap:8px; margin-left:4px; }
+    .registration-form { display:flex; flex-direction:column; gap:12px; }
+    .button-container { display:flex; justify-content:center; margin-top:18px; }
+    button {
+      min-width:160px; padding:12px 20px; border-radius:8px; border:none;
+      background:#007BFF; color:#fff; font-weight:600; cursor:pointer;
+      box-shadow: 0 6px 16px rgba(0,123,255,0.18); transition:transform .15s ease, background .15s ease;
+    }
+    button:hover { transform:translateY(-3px); background:#0056b3; }
+    .info-box {
+      margin-top:18px; padding:14px; background:#f9fafb;
+      border-left:4px solid #007BFF; border-radius:6px; color:#222;
+    }
+    .success-box {
+      margin-top:18px; padding:12px; background:#28a745; color:#fff;
+      border-radius:6px; text-align:center;
+    }
+    .center-note { text-align:center; color:#b00020; margin-top:12px; }
+  </style>
+</head>
+<body>
+  <div class="form-container" id="page1">
+    <h1 id="eventName">Tirupati Tech Summit 2025</h1>
+    <p class="subtitle">Student Registration Form</p>
+
+    <form class="registration-form" id="registrationForm" novalidate>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" class="input-field" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="input-field" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="input-field" placeholder="Re-enter your password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" class="input-field" required>
+      </div>
+
+      <div class="form-group">
+        <label for="college">College Name</label>
+        <input type="text" id="college" class="input-field" placeholder="e.g., Sri Venkateswara University" required>
+      </div>
+
+      <div class="form-group">
+        <label for="workshopSelector">Choose a Workshop</label>
+        <select id="workshopSelector" class="input-field" required>
+          <option value="">-- Select a Workshop --</option>
+          <option value="AI/ML">AI/ML in Practice</option>
+          <option value="WebDev">Modern Web Development</option>
+          <option value="CyberSec">Cybersecurity Essentials</option>
+          <option value="Cloud">Cloud Computing with AWS</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Year of Study</label>
+        <div class="radio-group">
+          <label><input type="radio" name="year" value="1st Year"> 1st</label>
+          <label><input type="radio" name="year" value="2nd Year"> 2nd</label>
+          <label><input type="radio" name="year" value="3rd Year"> 3rd</label>
+          <label><input type="radio" name="year" value="4th Year"> 4th</label>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" id="submitBtn">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Info Page -->
+  <div class="form-container" id="page2" style="display:none;">
+    <h1>Student Info</h1>
+    <div id="studentInfo" class="info-box"></div>
+    <h2>Fee Payment</h2>
+    <ul id="feeList" class="info-box"></ul>
+    <div class="button-container">
+      <button id="payBtn" type="button">Pay Now</button>
+    </div>
+    <p id="countdown" class="center-note"></p>
+  </div>
+
+  <!-- Thank You Page -->
+  <div class="form-container" id="page3" style="display:none; text-align:center;">
+    <h1>🎉 Thank You for Registering!</h1>
+    <p>Your registration for <strong>Tirupati Tech Summit 2025</strong> is complete. We’ll see you there!</p>
+  </div>
+
+  <script>
+    const regForm = document.getElementById('registrationForm');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const page3 = document.getElementById('page3');
+
+    regForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const dob = document.getElementById('dob').value;
+      const college = document.getElementById('college').value.trim();
+      const workshop = document.getElementById('workshopSelector').value;
+      const year = document.querySelector('input[name="year"]:checked')?.value || '';
+
+      if (!fullName || !email || !dob || !college || !workshop || !year) {
+        alert("⚠ Please fill all details.");
+        return;
+      }
+
+      page1.style.display = "none";
+      page2.style.display = "block";
+
+      document.getElementById("studentInfo").innerHTML = `
+        <p><strong>Name:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>DOB:</strong> ${dob}</p>
+        <p><strong>College:</strong> ${college}</p>
+        <p><strong>Workshop:</strong> ${workshop}</p>
+        <p><strong>Year:</strong> ${year}</p>
+      `;
+
+      document.getElementById("feeList").innerHTML = `
+        <li>Workshop Fee: ₹800</li>
+        <li>Materials Fee: ₹200</li>
+        <li><strong>Total: ₹1000</strong></li>
+      `;
+
+      let seconds = 60;
+      const cd = document.getElementById("countdown");
+      cd.textContent = `⏳ Redirecting to Thank You page in ${seconds}s…`;
+      const timer = setInterval(() => {
+        seconds--;
+        cd.textContent = `⏳ Redirecting to Thank You page in ${seconds}s…`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          page2.style.display = "none";
+          page3.style.display = "block";
+        }
+      }, 1000);
+
+      document.getElementById("payBtn").addEventListener("click", () => {
+        alert("✅ Payment Successful!");
+        clearInterval(timer);
+        page2.style.display = "none";
+        page3.style.display = "block";
+      });
+    });
+  </script>
+</body>
+  </html>
